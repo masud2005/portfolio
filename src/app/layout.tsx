@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -13,8 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Enterprise Template",
-  description: "Enterprise-ready Next.js template with best practices",
+  title: "Masud Rana — Executive Full Stack Developer & Digital Product Engineer",
+  description:
+    "Executive Full Stack Developer who builds digital products from idea to production. Scalable web applications, robust backend systems, and production-ready digital products.",
+  keywords: [
+    "Executive Full Stack Developer",
+    "Digital Product Engineer",
+    "Full Stack Architecture",
+    "Next.js",
+    "NestJS",
+    "PostgreSQL",
+    "Masud Rana",
+  ],
 };
 
 export default function RootLayout({
@@ -25,9 +36,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${jakartaSans.variable} ${geistMono.variable} scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col bg-[#FAFCFB] text-[#0F172A] font-sans">
+        {children}
+      </body>
     </html>
   );
 }

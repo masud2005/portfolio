@@ -178,3 +178,16 @@
 .animate-pulse-ring {
   animation: pulse-ring 2.5s infinite;
 }
+
+@keyframes dash-flow-outward {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.animate-dash-flow {
+  animation: dash-flow-outward 1.2s linear infinite;
+}

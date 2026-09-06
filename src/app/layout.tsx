@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Masud Rana — Executive Full Stack Developer & Digital Product Engineer",
+  title: "Masud Rana - Executive Full Stack Developer & Digital Product Engineer",
   description:
     "Executive Full Stack Developer who builds digital products from idea to production. Scalable web applications, robust backend systems, and production-ready digital products.",
   keywords: [
@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     "PostgreSQL",
     "Masud Rana",
   ],
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({

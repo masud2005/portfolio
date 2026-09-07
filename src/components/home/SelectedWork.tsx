@@ -226,20 +226,17 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
         </div>
 
         {/* ===================================================================
-            TOOLBAR: Exact Match with Reference Screenshot 1 & 4
-            Separated into 3 floating cards/containers:
-            1. Left: Category Pills Container
-            2. Middle: Advanced Filters Button
-            3. Right: Sort By + View Mode Toggle Container
+            TOOLBAR: Exact Match with Reference Screenshot
+            Single cohesive rounded container with filter tabs, advanced filters, sort, and view toggle
            =================================================================== */}
         <div className="mt-12 sm:mt-16">
-          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4">
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 p-2 sm:p-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3 sm:gap-4">
             
             {/* Left & Middle Controls */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               
-              {/* Box 1: Category Filter Pills Container */}
-              <div className="bg-white rounded-2xl border border-slate-200/80 p-1.5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex flex-wrap items-center gap-1">
+              {/* Category Filter Tabs */}
+              <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
                 {CATEGORY_TABS.map((tab) => {
                   const isActive = activeTab === tab.id;
                   const count = categoryCounts[tab.id] ?? 0;
@@ -251,16 +248,16 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
                       onClick={() => setActiveTab(tab.id)}
                       className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
                         isActive
-                          ? "bg-[#057A55] text-white shadow-sm"
-                          : "text-slate-600 hover:bg-slate-100/70 border border-transparent"
+                          ? "border border-[#057A55] text-[#057A55] bg-white shadow-xs"
+                          : "border border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                       }`}
                     >
                       <span>{tab.label}</span>
                       <span
-                        className={`inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full text-[11px] font-bold ${
+                        className={`inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full text-[11px] font-bold transition-colors ${
                           isActive
-                            ? "bg-white/25 text-white"
-                            : "bg-slate-100 text-slate-500"
+                            ? "bg-[#057A55] text-white"
+                            : "border border-slate-200/80 bg-white text-slate-400"
                         }`}
                       >
                         {count}
@@ -270,14 +267,14 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
                 })}
               </div>
 
-              {/* Box 2: Advanced Filters Standalone Button */}
+              {/* Advanced Filters Standalone Button */}
               <button
                 type="button"
                 onClick={() => setIsFilterDrawerOpen(!isFilterDrawerOpen)}
-                className={`bg-white border border-[#057A55] text-[#057A55] rounded-2xl px-5 py-2.5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] font-semibold text-xs sm:text-sm inline-flex items-center gap-2 hover:bg-emerald-50/40 transition-all ${
+                className={`border border-[#057A55] text-[#057A55] rounded-xl px-4 py-2 font-semibold text-xs sm:text-sm inline-flex items-center gap-2 transition-all ${
                   isFilterDrawerOpen || hasActiveAdvancedFilters
-                    ? "bg-emerald-50/70"
-                    : ""
+                    ? "bg-emerald-50 text-[#046546]"
+                    : "bg-[#F4FAF7] hover:bg-emerald-50/70"
                 }`}
               >
                 <span>Advanced Filters</span>
@@ -286,8 +283,8 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
 
             </div>
 
-            {/* Box 3: Right Sort By & View Mode Container */}
-            <div className="bg-white rounded-2xl border border-slate-200/80 px-4 py-2 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center gap-3.5 justify-end self-end xl:self-auto">
+            {/* Right: Sort By & View Mode Container */}
+            <div className="flex items-center gap-3.5 justify-end self-end xl:self-auto px-2 py-1">
               
               {/* Sort By Dropdown */}
               <div className="relative flex items-center gap-2">
@@ -303,9 +300,8 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
                   <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                 </button>
 
-                {/* Sort Menu Dropdown */}
                 {isSortOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-36 bg-white border border-slate-200 rounded-2xl shadow-xl py-1 z-30 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="absolute right-0 top-full mt-2 w-36 bg-white rounded-xl shadow-lg border border-slate-100 py-1.5 z-30 animate-in fade-in zoom-in-95 duration-150">
                     <button
                       type="button"
                       onClick={() => {
@@ -391,69 +387,71 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
                     <button
                       type="button"
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                     >
-                      <X className="w-3.5 h-3.5" />
+                      <X className="w-4 h-4" />
                     </button>
                   )}
                 </div>
 
-                {/* Reset Filters CTA */}
+                {/* Reset Filters Action */}
                 {hasActiveAdvancedFilters && (
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-500 hover:text-[#057A55] hover:bg-emerald-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors self-end sm:self-center"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Reset All Filters</span>
+                    <span>Clear Filters</span>
                   </button>
                 )}
               </div>
 
-              {/* Technology Filter Chips */}
+              {/* Technologies Filter Row */}
               <div className="pt-2 border-t border-slate-100">
-                <div className="text-xs font-bold text-slate-800 mb-2.5">
+                <div className="text-xs font-semibold text-slate-500 mb-2.5">
                   Filter by Technology:
                 </div>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   <button
                     type="button"
                     onClick={() => setSelectedTech("all")}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                       selectedTech === "all"
-                        ? "bg-[#057A55] text-white"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                        ? "bg-[#057A55] text-white shadow-xs"
+                        : "bg-slate-100/80 text-slate-600 hover:bg-slate-200/60"
                     }`}
                   >
                     All Tech
                   </button>
-                  {allTechStacks.map((tech) => (
-                    <button
-                      key={tech}
-                      type="button"
-                      onClick={() => setSelectedTech(tech)}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                        selectedTech === tech
-                          ? "bg-[#057A55] text-white"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }`}
-                    >
-                      {tech}
-                    </button>
-                  ))}
+                  {allTechStacks.map((tech) => {
+                    const isSelected = selectedTech === tech;
+                    return (
+                      <button
+                        key={tech}
+                        type="button"
+                        onClick={() => setSelectedTech(isSelected ? "all" : tech)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                          isSelected
+                            ? "bg-[#057A55] text-white shadow-xs"
+                            : "bg-slate-100/80 text-slate-600 hover:bg-slate-200/60"
+                        }`}
+                      >
+                        {tech}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           )}
-
         </div>
 
         {/* ===================================================================
             PROJECTS DISPLAY: GRID OR LIST MODE OR EMPTY STATE
            =================================================================== */}
         {filteredProjects.length === 0 ? (
-          /* EMPTY STATE: 100% Exact Match with Screenshot 4 */
+          /* EMPTY STATE */
           <div className="mt-8 bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 min-h-[380px] sm:min-h-[440px] flex flex-col items-center justify-center p-8 sm:p-12 text-center shadow-xs">
             <div className="w-12 h-12 rounded-full bg-[#E8F7F0] text-[#057A55] flex items-center justify-center mx-auto mb-3">
               <SearchX className="w-5 h-5 stroke-[2.2]" />
@@ -466,7 +464,7 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
             </p>
           </div>
         ) : viewMode === "grid" ? (
-          /* ASYMMETRIC GRID VIEW: 100% Exact Match with Screenshot 1 */
+          /* 3-COLUMN ASYMMETRIC GRID VIEW: Card 1 = 2 columns, Card 2 = 1 column */
           <div className="mt-8 space-y-6 sm:space-y-8">
             {Array.from({ length: Math.ceil(filteredProjects.length / 2) }).map(
               (_, rowIndex) => {
@@ -476,24 +474,24 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
                 return (
                   <div
                     key={rowIndex}
-                    className="flex flex-col lg:flex-row gap-6 sm:gap-7 items-stretch"
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch"
                   >
-                    {/* Item 1: Wide Horizontal Card (Left, ~58% Desktop Width) */}
+                    {/* Item 1: Wide Horizontal Card (Left, takes 2 columns out of 3) */}
                     {item1 && (
                       <div
                         className={
                           item2
-                            ? "w-full lg:w-[58%] xl:w-[59%] flex flex-col"
-                            : "w-full flex flex-col"
+                            ? "lg:col-span-2 h-full flex flex-col"
+                            : "lg:col-span-3 h-full flex flex-col"
                         }
                       >
                         <WideProjectCard project={item1} />
                       </div>
                     )}
 
-                    {/* Item 2: Vertical Stack Card (Right, ~42% Desktop Width) */}
+                    {/* Item 2: Vertical Stack Card (Right, takes 1 column out of 3) */}
                     {item2 && (
-                      <div className="w-full lg:w-[42%] xl:w-[41%] flex flex-col">
+                      <div className="lg:col-span-1 h-full flex flex-col">
                         <VerticalProjectCard project={item2} />
                       </div>
                     )}
@@ -503,7 +501,7 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
             )}
           </div>
         ) : (
-          /* LIST VIEW: 100% Exact Match with Screenshot 3 */
+          /* LIST VIEW */
           <div className="mt-8 space-y-6">
             {filteredProjects.map((project) => (
               <ListProjectCard key={project.id} project={project} />
@@ -517,62 +515,38 @@ export default function SelectedWork({ initialProjects }: SelectedWorkProps) {
 }
 
 // ---------------------------------------------------------------------------
-// CRISP 3D VECTOR ICONS (Matching Screenshot 1 Pixel-Perfect)
+// CRISP 3D ICONS (Exact Match with Reference Screenshot)
 // ---------------------------------------------------------------------------
-function Platform3DIcon() {
+function PlatformIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5 flex-shrink-0"
-    >
-      {/* Top Isometric Cube */}
-      <path d="M12 2L15.5 4L12 6L8.5 4L12 2Z" fill="#34D399" />
-      <path d="M8.5 4L12 6V9.8L8.5 7.8V4Z" fill="#057A55" />
-      <path d="M12 6L15.5 4V7.8L12 9.8V6Z" fill="#046546" />
-      {/* Bottom Left Cube */}
-      <path d="M7 10L10.5 12L7 14L3.5 12L7 10Z" fill="#6EE7B7" />
-      <path d="M3.5 12L7 14V17.8L3.5 15.8V12Z" fill="#057A55" />
-      <path d="M7 14L10.5 12V15.8L7 17.8V14Z" fill="#046546" />
-      {/* Bottom Right Cube */}
-      <path d="M17 10L20.5 12L17 14L13.5 12L17 10Z" fill="#34D399" />
-      <path d="M13.5 12L17 14V17.8L13.5 15.8V12Z" fill="#057A55" />
-      <path d="M17 14L20.5 12V15.8L17 17.8V14Z" fill="#046546" />
-    </svg>
-  );
-}
-
-function Duration3DIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5 flex-shrink-0"
-    >
-      {/* Winding green roadmap path */}
-      <path
-        d="M5 19C8.5 19 9.5 15 12.5 15C15.5 15 16.5 9 19 7"
-        stroke="#057A55"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+    <div className="w-[22px] h-[22px] relative flex-shrink-0">
+      <Image
+        src="/projects/icon_platform_exact.png"
+        alt="Platform"
+        width={22}
+        height={22}
+        className="object-contain"
       />
-      {/* Starting point */}
-      <circle cx="5" cy="19" r="2.5" fill="#34D399" stroke="#057A55" strokeWidth="1.2" />
-      {/* Mid waypoint */}
-      <circle cx="12.5" cy="15" r="2" fill="#6EE7B7" stroke="#057A55" strokeWidth="1.2" />
-      {/* Goal flag pole */}
-      <path d="M19 7V3" stroke="#057A55" strokeWidth="1.8" strokeLinecap="round" />
-      {/* Goal Flag */}
-      <path d="M19 3L23 5L19 7V3Z" fill="#057A55" />
-    </svg>
+    </div>
+  );
+}
+
+function DurationIcon() {
+  return (
+    <div className="w-[22px] h-[22px] relative flex-shrink-0">
+      <Image
+        src="/projects/icon_duration_exact.png"
+        alt="Duration"
+        width={22}
+        height={22}
+        className="object-contain"
+      />
+    </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// SUB-COMPONENT: Wide Horizontal Split Card (Screenshot 1 - Left Column)
+// SUB-COMPONENT: Wide Horizontal Split Card (Takes 2 columns in 3-column grid)
 // ---------------------------------------------------------------------------
 interface CardProps {
   project: Project;
@@ -580,10 +554,10 @@ interface CardProps {
 
 function WideProjectCard({ project }: CardProps) {
   return (
-    <div className="group relative h-full flex flex-col lg:flex-row justify-between bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_45px_rgba(5,122,85,0.09)] hover:border-emerald-200/70 transition-all duration-300 p-6 sm:p-8 gap-6 sm:gap-7 overflow-hidden">
+    <div className="group relative h-full flex flex-col lg:flex-row justify-between bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(5,122,85,0.08)] hover:border-emerald-200/70 transition-all duration-300 p-6 sm:p-7 lg:p-8 gap-6 sm:gap-7 overflow-hidden">
       
       {/* Left Info Area */}
-      <div className="w-full lg:w-[40%] flex flex-col justify-between py-1">
+      <div className="w-full lg:w-[40%] xl:w-[38%] flex flex-col justify-between py-1">
         <div>
           {/* Category Badge */}
           <span className="px-3.5 py-1 rounded-full bg-[#E8F7F0] text-[#057A55] text-xs font-semibold inline-block">
@@ -591,20 +565,20 @@ function WideProjectCard({ project }: CardProps) {
           </span>
 
           {/* Title */}
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-3 sm:mt-4 tracking-tight leading-snug">
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-3 sm:mt-3.5 tracking-tight leading-snug">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed mt-2 line-clamp-3">
+          <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed mt-2.5 line-clamp-3">
             {project.description}
           </p>
 
           {/* Meta Info: Platform & Duration */}
-          <div className="my-5 py-4 border-y border-slate-100 grid grid-cols-2 gap-4">
+          <div className="mt-5 mb-5 pb-5 border-b border-slate-100/80 grid grid-cols-2 gap-4">
             {/* Platform */}
             <div className="flex items-center gap-2.5">
-              <Platform3DIcon />
+              <PlatformIcon />
               <div>
                 <div className="text-xs font-bold text-slate-900 leading-none">
                   Platform
@@ -617,7 +591,7 @@ function WideProjectCard({ project }: CardProps) {
 
             {/* Duration */}
             <div className="flex items-center gap-2.5">
-              <Duration3DIcon />
+              <DurationIcon />
               <div>
                 <div className="text-xs font-bold text-slate-900 leading-none">
                   Duration
@@ -630,16 +604,16 @@ function WideProjectCard({ project }: CardProps) {
           </div>
         </div>
 
-        {/* Action Link: ONLY THIS IS CLICKABLE (Navigates to /projects/[id]) */}
-        <div className="flex items-center pt-2">
+        {/* View Case Study CTA Button */}
+        <div className="pt-2">
           <Link
             href={`/projects/${project.id}`}
-            className="inline-flex items-center gap-3 group/btn"
+            className="group/btn inline-flex items-center gap-3 w-fit"
           >
-            <span className="text-sm font-bold text-[#057A55] group-hover/btn:underline transition-all">
+            <span className="text-sm sm:text-base font-bold text-slate-900 group-hover/btn:text-[#057A55] transition-colors">
               View Case Study
             </span>
-            <div className="w-11 h-11 rounded-full bg-[#057A55] text-white flex items-center justify-center shadow-md shadow-emerald-950/20 group-hover/btn:bg-[#046546] group-hover/btn:scale-105 transition-all duration-200">
+            <div className="w-11 h-11 rounded-full bg-[#057A55] text-white flex items-center justify-center shadow-md shadow-emerald-950/20 group-hover/btn:bg-[#046546] group-hover/btn:scale-105 active:scale-95 transition-all duration-200">
               <ArrowUpRight className="w-5 h-5 stroke-[2.5]" />
             </div>
           </Link>
@@ -647,12 +621,12 @@ function WideProjectCard({ project }: CardProps) {
       </div>
 
       {/* Right Mockup Image Area */}
-      <div className="w-full lg:w-[60%] relative rounded-2xl overflow-hidden min-h-[300px] sm:min-h-[360px] lg:min-h-[400px] bg-stone-50">
+      <div className="w-full lg:w-[60%] xl:w-[62%] relative rounded-2xl overflow-hidden min-h-[280px] sm:min-h-[340px] lg:min-h-0 bg-stone-50">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          sizes="(max-width: 1024px) 100vw, 650px"
+          sizes="(max-width: 1024px) 100vw, 750px"
           className="object-cover object-center"
         />
       </div>
@@ -661,37 +635,36 @@ function WideProjectCard({ project }: CardProps) {
 }
 
 // ---------------------------------------------------------------------------
-// SUB-COMPONENT: Vertical Stack Card (Screenshot 1 - Right Column)
+// SUB-COMPONENT: Vertical Stack Card (Takes 1 column in 3-column grid)
 // ---------------------------------------------------------------------------
 function VerticalProjectCard({ project }: CardProps) {
   return (
-    <div className="group relative h-full flex flex-col bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_45px_rgba(5,122,85,0.09)] hover:border-emerald-200/70 transition-all duration-300 p-5 sm:p-6 overflow-visible">
+    <div className="group relative h-full flex flex-col justify-between bg-white rounded-3xl border border-slate-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_45px_rgba(5,122,85,0.08)] hover:border-emerald-200/70 transition-all duration-300 p-5 sm:p-6 overflow-visible">
       
       {/* Top Image Section with Floating Circular Arrow Button */}
       <div className="relative w-full">
-        {/* Inner rounded image wrapper */}
-        <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+        <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-stone-50">
           <Image
             src={project.image}
             alt={project.title}
             fill
-            sizes="(max-width: 1024px) 100vw, 450px"
+            sizes="(max-width: 1024px) 100vw, 420px"
             className="object-cover object-center"
           />
         </div>
 
-        {/* Floating Green Circle Arrow Button: ONLY THIS IS CLICKABLE (Navigates to /projects/[id]) */}
+        {/* Floating Green Circle Arrow Button: Centered on bottom-right of image */}
         <Link
           href={`/projects/${project.id}`}
           aria-label={`View ${project.title}`}
-          className="absolute -bottom-5 right-4 z-20 w-12 h-12 rounded-full bg-[#057A55] text-white flex items-center justify-center shadow-lg shadow-emerald-800/30 hover:bg-[#046546] hover:scale-105 active:scale-95 transition-all duration-200"
+          className="absolute -bottom-5 right-4 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#057A55] text-white flex items-center justify-center shadow-lg shadow-emerald-950/20 hover:bg-[#046546] hover:scale-105 active:scale-95 transition-all duration-200"
         >
           <ArrowUpRight className="w-5 h-5 stroke-[2.5]" />
         </Link>
       </div>
 
       {/* Bottom Info Section */}
-      <div className="pt-8 flex flex-col justify-between flex-1">
+      <div className="pt-7 sm:pt-8 flex flex-col justify-between flex-1">
         <div>
           {/* Category Badge */}
           <span className="px-3.5 py-1 rounded-full bg-[#E8F7F0] text-[#057A55] text-xs font-semibold inline-block">
@@ -710,10 +683,10 @@ function VerticalProjectCard({ project }: CardProps) {
         </div>
 
         {/* Meta Info: Platform & Duration */}
-        <div className="mt-5 pt-4 border-t border-slate-100 grid grid-cols-2 gap-3">
+        <div className="mt-5 pt-4 border-t border-slate-100/80 grid grid-cols-2 gap-3">
           {/* Platform */}
           <div className="flex items-center gap-2.5">
-            <Platform3DIcon />
+            <PlatformIcon />
             <div>
               <div className="text-xs font-bold text-slate-900 leading-none">
                 Platform
@@ -726,7 +699,7 @@ function VerticalProjectCard({ project }: CardProps) {
 
           {/* Duration */}
           <div className="flex items-center gap-2.5">
-            <Duration3DIcon />
+            <DurationIcon />
             <div>
               <div className="text-xs font-bold text-slate-900 leading-none">
                 Duration
@@ -758,7 +731,7 @@ function ListProjectCard({ project }: CardProps) {
           </span>
 
           {/* Title */}
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-3 tracking-tight leading-snug">
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mt-3 sm:mt-4 tracking-tight leading-snug">
             {project.title}
           </h3>
 
@@ -768,10 +741,10 @@ function ListProjectCard({ project }: CardProps) {
           </p>
 
           {/* Meta Info: Platform & Duration */}
-          <div className="mt-5 pt-4 pb-4 border-t border-slate-100 grid grid-cols-2 gap-4">
+          <div className="my-5 py-4 border-y border-slate-100 grid grid-cols-2 gap-4">
             {/* Platform */}
             <div className="flex items-center gap-2.5">
-              <Platform3DIcon />
+              <PlatformIcon />
               <div>
                 <div className="text-xs font-bold text-slate-900 leading-none">
                   Platform
@@ -784,7 +757,7 @@ function ListProjectCard({ project }: CardProps) {
 
             {/* Duration */}
             <div className="flex items-center gap-2.5">
-              <Duration3DIcon />
+              <DurationIcon />
               <div>
                 <div className="text-xs font-bold text-slate-900 leading-none">
                   Duration
@@ -797,29 +770,29 @@ function ListProjectCard({ project }: CardProps) {
           </div>
         </div>
 
-        {/* Action Link: ONLY THIS IS CLICKABLE (Navigates to /projects/[id]) */}
-        <div className="flex items-center pt-2">
+        {/* View Case Study CTA Button */}
+        <div className="pt-2">
           <Link
             href={`/projects/${project.id}`}
-            className="inline-flex items-center gap-3 group/btn"
+            className="group/btn inline-flex items-center gap-3 w-fit"
           >
-            <span className="text-sm font-bold text-[#057A55] group-hover/btn:underline transition-all">
+            <span className="text-sm sm:text-base font-bold text-slate-900 group-hover/btn:text-[#057A55] transition-colors">
               View Case Study
             </span>
-            <div className="w-11 h-11 rounded-full bg-[#057A55] text-white flex items-center justify-center shadow-md shadow-emerald-800/25 group-hover/btn:bg-[#046546] group-hover/btn:scale-105 active:scale-95 transition-all duration-200">
+            <div className="w-11 h-11 rounded-full bg-[#057A55] text-white flex items-center justify-center shadow-md shadow-emerald-950/20 group-hover/btn:bg-[#046546] group-hover/btn:scale-105 transition-all duration-200">
               <ArrowUpRight className="w-5 h-5 stroke-[2.5]" />
             </div>
           </Link>
         </div>
       </div>
 
-      {/* Right Wide Mockup Image Area — flush to card edge, no padding */}
-      <div className="w-full lg:w-[65%] relative min-h-[260px] sm:min-h-[320px] lg:min-h-0 bg-stone-50">
+      {/* Right Mockup Image Area */}
+      <div className="w-full lg:w-[65%] relative min-h-[280px] sm:min-h-[340px] lg:min-h-0 bg-stone-50 overflow-hidden">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          sizes="(max-width: 1024px) 100vw, 900px"
+          sizes="(max-width: 1024px) 100vw, 800px"
           className="object-cover object-center"
         />
       </div>

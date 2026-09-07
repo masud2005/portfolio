@@ -54,3 +54,4 @@ export function ListProjectCard({ project }: ListProjectCardProps) {
     </div>
   );
 }
+

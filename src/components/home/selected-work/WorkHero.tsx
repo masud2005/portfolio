@@ -1,14 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Home } from "lucide-react";
+import { Home, Code2, Users, Star } from "lucide-react";
+
+const STATS = [
+  {
+    icon: Code2,
+    value: "30+",
+    label: "Projects Shipped",
+  },
+  {
+    icon: Users,
+    value: "15+",
+    label: "Industries Served",
+  },
+  {
+    icon: Star,
+    value: "98%",
+    label: "Client Satisfaction",
+  },
+];
 
 export function WorkHero() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      {/* Left: Heading + Stats */}
+
+      {/* Left: Heading + Description + Stats */}
       <div className="lg:col-span-6 space-y-6 sm:space-y-7">
+
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-500">
+        <nav className="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-500">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 hover:text-slate-800 transition-colors"
@@ -17,58 +37,68 @@ export function WorkHero() {
             <span>Home</span>
           </Link>
           <span className="text-slate-300">/</span>
-          <span className="text-slate-800 font-semibold">Portfolio</span>
+          <span className="text-slate-800 font-semibold">Selected Work</span>
+        </nav>
+
+        {/* Label pill */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/60 text-[#057A55] text-xs font-semibold">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#057A55] animate-pulse" />
+          Full Stack Engineer · Masud Rana
         </div>
 
-        {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-black tracking-tight text-slate-900 leading-[1.08]">
-          Our Work.<br />
-          <span className="text-[#057A55]">Real Impact.</span>
-        </h1>
+        {/* Main Heading */}
+        <div className="space-y-1">
+          <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-black tracking-tight text-slate-900 leading-[1.08]">
+            Real Products.
+          </h1>
+          <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-black tracking-tight text-[#057A55] leading-[1.08]">
+            Real Impact.
+          </h1>
+        </div>
 
-        {/* Subtitle */}
+        {/* Description */}
         <p className="text-sm sm:text-base text-slate-500 leading-relaxed max-w-lg">
-          Success stories from diverse industries and sectors. Each project is a
-          reflection of our commitment to excellence, innovation and measurable results.
+          From multi-vendor e-commerce platforms and SaaS dashboards to
+          AI-powered applications and real-time systems — every project is
+          engineered end-to-end with Next.js, NestJS, and scalable backend
+          architecture.
         </p>
 
-        {/* Stats */}
-        <div className="flex flex-wrap items-center gap-6 sm:gap-10 pt-2">
-          {[
-            { src: "/projects/stat_icon_projects.png", value: "120+", label: "Projects Completed" },
-            { src: "/projects/stat_icon_industries.png", value: "15+", label: "Industries Served" },
-            { src: "/projects/stat_icon_satisfaction.png", value: "98%", label: "Client Satisfaction" },
-          ].map((stat) => (
-            <div key={stat.label} className="flex items-center gap-3">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 relative flex-shrink-0">
-                <Image src={stat.src} alt={stat.label} fill className="object-contain" />
+        {/* Stats row */}
+        <div className="flex flex-wrap items-center gap-5 sm:gap-8 pt-1">
+          {STATS.map(({ icon: Icon, value, label }) => (
+            <div key={label} className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center flex-shrink-0">
+                <Icon className="w-4.5 h-4.5 text-[#057A55]" strokeWidth={2} />
               </div>
               <div>
                 <div className="text-2xl sm:text-3xl font-black text-slate-900 leading-none">
-                  {stat.value}
+                  {value}
                 </div>
                 <div className="text-xs text-slate-500 font-medium mt-1 whitespace-nowrap">
-                  {stat.label}
+                  {label}
                 </div>
               </div>
             </div>
           ))}
         </div>
+
       </div>
 
       {/* Right: Device mockup image */}
       <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end">
-        <div className="relative w-full max-w-[620px] aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-3xl select-none">
+        <div className="relative w-full max-w-[620px] aspect-[16/10] sm:aspect-[16/9] overflow-hidden rounded-3xl select-none bg-stone-50">
           <Image
             src="/projects/hero_devices_wave_ribbon.jpg"
-            alt="Digital Products and Web Applications Showcase"
+            alt="Masud Rana – Full Stack Projects Showcase"
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 620px"
-            className="object-contain lg:object-right object-center"
+            className="object-cover lg:object-right object-center"
           />
         </div>
       </div>
+
     </div>
   );
 }

@@ -49,3 +49,4 @@ export function ProjectsDisplay({ projects, viewMode }: ProjectsDisplayProps) {
     </div>
   );
 }
+

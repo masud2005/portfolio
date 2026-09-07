@@ -52,3 +52,4 @@ export function VerticalProjectCard({ project }: VerticalProjectCardProps) {
     </div>
   );
 }
+

@@ -31,3 +31,4 @@ export function MetaInfo({ platform, duration }: MetaInfoProps) {
     </div>
   );
 }
+

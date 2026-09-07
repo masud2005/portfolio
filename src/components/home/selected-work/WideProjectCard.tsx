@@ -54,3 +54,4 @@ export function WideProjectCard({ project }: WideProjectCardProps) {
     </div>
   );
 }
+

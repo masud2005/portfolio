@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import {
   Sparkles,
   TrendingUp,
@@ -7,358 +9,394 @@ import {
   Briefcase,
   GraduationCap,
   Award,
-  Server,
+  Calendar,
+  Layers,
+  Code2,
+  Cpu,
+  ArrowUpRight,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
 
-interface Responsibility {
-  num: string;
-  title: string;
-  desc: string;
+interface RoleMilestone {
+  id: string;
+  role: string;
+  period: string;
+  isCurrent: boolean;
+  promotionBadge?: string;
+  summary: string;
+  achievements: {
+    title: string;
+    description: string;
+    icon: React.ElementType;
+  }[];
+  techStack: string[];
 }
 
-const currentRoleResponsibilities: Responsibility[] = [
+const experienceTimeline: RoleMilestone[] = [
   {
-    num: "01",
-    title: "Full-Stack Product Engineering",
-    desc: "Architecting and delivering complete web applications from initial system design to production release.",
+    id: "executive-fullstack",
+    role: "Executive Full Stack Developer",
+    period: "Jul 2026 – Present",
+    isCurrent: true,
+    promotionBadge: "Earned Promotion • Backend Developer → Executive Full Stack",
+    summary:
+      "Promoted to lead end-to-end digital product architecture, bridging scalable backend systems with modern, reactive client interfaces for agency clients worldwide.",
+    achievements: [
+      {
+        title: "Full-Stack System Delivery",
+        description:
+          "Build scalable full stack applications with React, Next.js, NestJS, and PostgreSQL.",
+        icon: Layers,
+      },
+      {
+        title: "Client Requirements & Architecture",
+        description:
+          "Analyze client requirements, design databases, and develop production-ready solutions.",
+        icon: ShieldCheck,
+      },
+      {
+        title: "Real-Time Systems & DevOps",
+        description:
+          "Implement real-time features with Socket.IO and deploy applications using Docker and CI/CD.",
+        icon: Zap,
+      },
+    ],
+    techStack: [
+      "React",
+      "Next.js",
+      "NestJS",
+      "PostgreSQL",
+      "Socket.IO",
+      "Docker",
+      "CI/CD",
+      "TypeScript",
+      "Tailwind CSS",
+    ],
   },
   {
-    num: "02",
-    title: "Backend Architecture & APIs",
-    desc: "Designing resilient RESTful and real-time APIs using NestJS, Node.js, and event-driven patterns.",
-  },
-  {
-    num: "03",
-    title: "Database Design & Optimization",
-    desc: "Modeling relational schemas in PostgreSQL, caching with Redis, and optimizing complex queries.",
-  },
-  {
-    num: "04",
-    title: "Third-Party & Payment Integrations",
-    desc: "Implementing secure payment gateways (Stripe), webhooks, authentication, and external services.",
-  },
-  {
-    num: "05",
-    title: "Deployment & Infrastructure",
-    desc: "Managing Docker environments, CI/CD pipelines, and cloud platform deployments with zero downtime.",
-  },
-  {
-    num: "06",
-    title: "Cross-Functional Collaboration",
-    desc: "Working closely with product stakeholders, UI/UX designers, and QA teams to maintain velocity.",
+    id: "backend-developer",
+    role: "Backend Developer",
+    period: "Nov 2025 – Jun 2026",
+    isCurrent: false,
+    summary:
+      "Focused on high-performance server architectures, secure API development, transactional consistency, and data caching.",
+    achievements: [
+      {
+        title: "Secure REST APIs & Services",
+        description:
+          "Developed secure REST APIs using Node.js, Express.js, NestJS, and TypeScript.",
+        icon: Code2,
+      },
+      {
+        title: "Auth, Payments & Caching",
+        description:
+          "Built authentication, payment, caching, and database-driven backend services.",
+        icon: Cpu,
+      },
+      {
+        title: "Database Optimization & Team Sync",
+        description:
+          "Optimized PostgreSQL, Prisma, MongoDB, Redis, and collaborated across cross-functional teams.",
+        icon: CheckCircle2,
+      },
+    ],
+    techStack: [
+      "Node.js",
+      "Express.js",
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "MongoDB",
+      "Redis",
+      "REST APIs",
+    ],
   },
 ];
 
-const priorRoleResponsibilities: Responsibility[] = [
+const educationData = [
   {
-    num: "01",
-    title: "REST API & Microservices",
-    desc: "Engineered scalable endpoints, request validation pipelines, and business logic layers.",
+    category: "Formal Education",
+    title: "Diploma in Computer Science & Technology",
+    institution: "Foundational computing, data structures & algorithms",
+    icon: GraduationCap,
   },
   {
-    num: "02",
-    title: "Database Modeling & Indexing",
-    desc: "Designed and optimized database schemas, transactions, and migration strategies.",
+    category: "Professional Program",
+    title: "Complete Web Development",
+    institution: "Programming Hero — Full Stack JavaScript & Modern Web Ecosystem",
+    icon: Award,
   },
   {
-    num: "03",
-    title: "Authentication & Security",
-    desc: "Implemented JWT, session management, RBAC access control, and endpoint rate limiting.",
-  },
-  {
-    num: "04",
-    title: "Performance Optimization",
-    desc: "Reduced server response latency via Redis caching and optimized database query execution.",
+    category: "Certification",
+    title: "IT Support Service Level 03",
+    institution: "NSDA — Certified Technical & Systems Competency",
+    icon: CheckCircle2,
   },
 ];
 
 export default function Experience() {
+  const [activeMilestone, setActiveMilestone] = useState<string>("executive-fullstack");
+
   return (
     <section
       id="experience"
-      className="relative py-24 sm:py-32 bg-white overflow-hidden"
+      className="relative py-20 sm:py-28 lg:py-32 bg-[#FAFCFB] overflow-hidden scroll-mt-20"
     >
-      {/* Background Decorative Glow */}
+      {/* Background Decorative Ambient Radial Glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-emerald-50/40 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-10 right-0 w-[450px] h-[450px] bg-teal-50/30 rounded-full blur-3xl -z-10" />
+        <div className="absolute top-1/4 right-0 w-[550px] h-[550px] bg-emerald-100/30 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-teal-50/40 rounded-full blur-3xl -z-10" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Header */}
+        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F7F0] border border-emerald-100 text-xs font-bold text-[#057A55] tracking-wide uppercase shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Career Evolution</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E8F7F0] border border-emerald-200/80 text-xs font-semibold text-[#057A55] tracking-wide shadow-xs cursor-default">
+            <Sparkles className="w-3.5 h-3.5 text-[#057A55]" />
+            <span>Career Evolution & Impact</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-[1.16]">
             From Backend Depth to{" "}
-            <span className="text-[#057A55]">Full-Stack Leadership</span>
+            <span className="text-[#057A55]">Full-Stack Ownership</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
-            My career began with a deep focus on server-side architecture,
-            database performance, and APIs. That foundational rigor paved the
-            way for complete full-stack ownership and digital product
-            engineering.
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
+            My journey at Softvence Agency demonstrates how deep server-side foundations
+            and proactive problem solving naturally evolved into end-to-end digital product engineering.
           </p>
         </div>
 
-        {/* Promotion Story Highlight Banner */}
-        <div className="mt-12 sm:mt-16 p-6 sm:p-8 rounded-3xl bg-[#F0FAF5] border border-emerald-100/90 shadow-[0_4px_25px_rgba(5,122,85,0.05)] flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-1.5 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-[#057A55] uppercase tracking-wider">
-              <TrendingUp className="w-4 h-4" />
-              <span>Growth is Part of the Work</span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-black text-[#0F172A]">
-              Earned Promotion Through Demonstrated Impact
-            </h3>
-            <p className="text-sm text-slate-600 max-w-xl">
-              From managing backend systems to owning end-to-end full-stack
-              applications, my progression reflects proactive problem-solving
-              and business ownership.
-            </p>
-          </div>
-
-          {/* Promotion Diagram Pill Flow */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-white px-5 py-3.5 rounded-2xl border border-emerald-200/60 shadow-sm text-xs sm:text-sm font-bold">
-            <span className="text-slate-600 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/60">
-              Backend Developer
-            </span>
-            <span className="text-[#057A55]">→</span>
-            <span className="text-emerald-700 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200">
-              Expanded Ownership
-            </span>
-            <span className="text-[#057A55]">→</span>
-            <span className="text-white px-3 py-1.5 rounded-xl bg-[#057A55] shadow-sm">
-              Executive Full Stack
-            </span>
-          </div>
-        </div>
-
-        {/* Career Timeline Cards */}
-        <div className="mt-14 space-y-8">
-          
-          {/* ROLE 1: Current Role */}
-          <div className="relative bg-white rounded-3xl p-7 sm:p-10 border-2 border-emerald-200/80 shadow-[0_12px_40px_rgba(5,122,85,0.07)]">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-              <div className="flex items-start sm:items-center gap-3.5">
-                <div className="w-12 h-12 rounded-2xl bg-[#057A55] text-white flex items-center justify-center shadow-md shadow-emerald-700/25 flex-shrink-0">
-                  <Briefcase className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2.5">
-                    <h3 className="text-xl sm:text-2xl font-black text-[#0F172A]">
-                      Executive Full Stack Developer
-                    </h3>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E8F7F0] text-[#057A55] text-xs font-bold">
-                      <span className="relative flex h-1.5 w-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#057A55]" />
-                      </span>
-                      Current Role
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Leading product engineering across modern web, backend & cloud architectures
-                  </p>
-                </div>
+        {/* Company Anchor Showcase Card */}
+        <div className="mt-12 sm:mt-16 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 lg:p-10 shadow-[0_4px_30px_rgba(5,122,85,0.06)]">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+            {/* Left: Softvence Logo & Details */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <div className="relative h-14 w-44 sm:h-16 sm:w-48 bg-[#FAFCFB] rounded-2xl border border-slate-200/70 p-2.5 flex items-center justify-center shadow-xs overflow-hidden">
+                <Image
+                  src="/softvence.png"
+                  alt="Softvence Logo"
+                  fill
+                  className="object-contain p-2"
+                  sizes="(max-width: 640px) 176px, 192px"
+                  priority
+                />
               </div>
 
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 self-start sm:self-auto">
-                <span>Present</span>
-              </div>
-            </div>
-
-            {/* Responsibilities Grid */}
-            <div className="mt-8">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">
-                Key Responsibilities & System Ownership:
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {currentRoleResponsibilities.map((item) => (
-                  <div
-                    key={item.num}
-                    className="p-4 rounded-2xl bg-[#FAFCFB] border border-slate-100 hover:border-emerald-200 transition-colors space-y-1.5"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#057A55] bg-[#E8F7F0] px-2 py-0.5 rounded-md">
-                        {item.num}
-                      </span>
-                      <h5 className="text-sm font-bold text-[#0F172A]">
-                        {item.title}
-                      </h5>
-                    </div>
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Stack Tags */}
-            <div className="mt-8 pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs font-bold text-slate-500">
-                Primary Technologies:
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Next.js",
-                  "TypeScript",
-                  "NestJS",
-                  "Node.js",
-                  "PostgreSQL",
-                  "Redis",
-                  "Prisma",
-                  "Docker",
-                  "Tailwind CSS",
-                ].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/70 text-xs font-semibold text-slate-700"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ROLE 2: Previously - Backend Developer */}
-          <div className="relative bg-white rounded-3xl p-7 sm:p-10 border border-slate-100 shadow-[0_4px_25px_rgba(0,0,0,0.03)] hover:border-slate-200 transition-all">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-              <div className="flex items-start sm:items-center gap-3.5">
-                <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
-                  <Server className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A]">
-                    Backend Developer
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+                    Softvence Agency
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Focused on scalable REST APIs, relational schemas & server performance
-                  </p>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E8F7F0] text-[#057A55] text-xs font-bold border border-emerald-200/60">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#057A55]"></span>
+                    </span>
+                    <span>Primary Tenure</span>
+                  </span>
                 </div>
-              </div>
-
-              <div className="flex items-center gap-2 text-xs font-medium text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 self-start sm:self-auto">
-                <span>Previously</span>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  Digital Product Agency • Full-Stack Software Engineering & Scale
+                </p>
               </div>
             </div>
 
-            {/* Responsibilities Grid */}
-            <div className="mt-8">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">
-                Core Contributions:
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {priorRoleResponsibilities.map((item) => (
+            {/* Right: Tenure Metrics Pills */}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="px-4 py-2 rounded-2xl bg-[#FAFCFB] border border-slate-200/80">
+                <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+                  Total Duration
+                </p>
+                <p className="text-sm font-bold text-slate-800">
+                  Nov 2025 – Present
+                </p>
+              </div>
+
+              <div className="px-4 py-2 rounded-2xl bg-[#F0FAF5] border border-emerald-200/80 text-[#057A55]">
+                <p className="text-[11px] font-medium text-emerald-600 uppercase tracking-wider">
+                  Career Trajectory
+                </p>
+                <p className="text-sm font-extrabold flex items-center gap-1.5">
+                  <TrendingUp className="w-4 h-4 text-[#057A55]" />
+                  <span>1 Internal Promotion</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Connected Timeline Rail of Roles */}
+          <div className="mt-10 relative">
+            {/* The Vertical Gradient Connector Line */}
+            <div className="hidden sm:block absolute left-6 top-8 bottom-12 w-0.5 bg-gradient-to-b from-[#057A55] via-emerald-400 to-slate-200 z-0" />
+
+            <div className="space-y-10 sm:space-y-12">
+              {experienceTimeline.map((item, index) => {
+                const isSelected = activeMilestone === item.id;
+                return (
                   <div
-                    key={item.num}
-                    className="p-4 rounded-2xl bg-slate-50/70 border border-slate-100 space-y-1"
+                    key={item.id}
+                    onClick={() => setActiveMilestone(item.id)}
+                    className={`relative z-10 flex flex-col sm:flex-row items-start gap-6 sm:gap-8 group cursor-pointer transition-all duration-300`}
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-slate-500">
-                        {item.num}
-                      </span>
-                      <h5 className="text-sm font-bold text-slate-800">
-                        {item.title}
-                      </h5>
+                    {/* Timeline Node Icon Circle */}
+                    <div className="flex items-center sm:flex-col justify-center">
+                      <div
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 shadow-sm ${item.isCurrent
+                          ? "bg-[#057A55] text-white ring-4 ring-[#E8F7F0]"
+                          : "bg-slate-100 text-slate-600 group-hover:bg-[#E8F7F0] group-hover:text-[#057A55]"
+                          }`}
+                      >
+                        {item.isCurrent ? (
+                          <Briefcase className="w-5 h-5" />
+                        ) : (
+                          <Code2 className="w-5 h-5" />
+                        )}
+                      </div>
                     </div>
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {item.desc}
+
+                    {/* Milestone Content Card */}
+                    <div
+                      className={`flex-1 w-full bg-[#FAFCFB] rounded-3xl p-6 sm:p-8 border transition-all duration-300 ${isSelected
+                        ? "border-emerald-300 shadow-[0_12px_35px_rgba(5,122,85,0.08)] bg-white"
+                        : "border-slate-200/80 hover:border-emerald-200/80 hover:bg-white"
+                        }`}
+                    >
+                      {/* Top Role Header */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <h4 className="text-xl sm:text-2xl font-bold text-slate-900">
+                              {item.role}
+                            </h4>
+                            {item.isCurrent && (
+                              <span className="px-2.5 py-0.5 rounded-full bg-[#E8F7F0] text-[#057A55] text-xs font-bold">
+                                Current Role
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs sm:text-sm font-semibold text-[#057A55] mt-1">
+                            Softvence Agency
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 bg-white px-3.5 py-1.5 rounded-xl border border-slate-200/70 shadow-2xs self-start sm:self-auto">
+                          <Calendar className="w-4 h-4 text-[#057A55]" />
+                          <span>{item.period}</span>
+                        </div>
+                      </div>
+
+                      {/* Promotion Banner Callout if present */}
+                      {item.promotionBadge && (
+                        <div className="mt-4 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-[#E8F7F0] to-[#F2FAF5] border border-emerald-200/70 flex items-center gap-3 text-xs sm:text-sm font-bold text-[#057A55]">
+                          <TrendingUp className="w-4 h-4 text-[#057A55] shrink-0" />
+                          <span>{item.promotionBadge}</span>
+                        </div>
+                      )}
+
+                      {/* Summary */}
+                      <p className="text-sm sm:text-base text-slate-600 leading-relaxed mt-4">
+                        {item.summary}
+                      </p>
+
+                      {/* Key Deliverables & Responsibilities Grid */}
+                      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {item.achievements.map((ach, aIdx) => {
+                          const Icon = ach.icon;
+                          return (
+                            <div
+                              key={aIdx}
+                              className="p-4 rounded-2xl bg-white border border-slate-100 hover:border-emerald-200 transition-colors space-y-2 shadow-2xs"
+                            >
+                              <div className="w-8 h-8 rounded-xl bg-[#E8F7F0] text-[#057A55] flex items-center justify-center">
+                                <Icon className="w-4 h-4" />
+                              </div>
+                              <h5 className="text-sm font-bold text-slate-900 leading-snug">
+                                {ach.title}
+                              </h5>
+                              <p className="text-xs text-slate-600 leading-relaxed">
+                                {ach.description}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Tech Stack Pills */}
+                      <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                          Applied Tech Stack:
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {item.techStack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-3 py-1 rounded-xl bg-white border border-slate-200/80 text-xs font-semibold text-slate-700 shadow-2xs hover:border-emerald-300 hover:text-[#057A55] transition-colors"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Academic & Certifications Row */}
+        <div className="mt-14 sm:mt-20">
+          <div className="text-center mb-8">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#057A55]">
+              Accreditation & Foundations
+            </span>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+              Education & Certified Competencies
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {educationData.map((edu, idx) => {
+              const Icon = edu.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:border-emerald-200 hover:shadow-[0_8px_30px_rgba(5,122,85,0.06)] transition-all duration-300 flex items-start gap-4"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-[#E8F7F0] text-[#057A55] flex items-center justify-center shrink-0 shadow-xs">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold text-[#057A55] uppercase tracking-wider">
+                      {edu.category}
+                    </span>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-0.5 leading-snug">
+                      {edu.title}
+                    </h4>
+                    <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                      {edu.institution}
                     </p>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Stack Tags */}
-            <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-              <span className="text-xs font-bold text-slate-500">
-                Core Stack:
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Node.js",
-                  "Express.js",
-                  "NestJS",
-                  "MongoDB",
-                  "PostgreSQL",
-                  "REST APIs",
-                  "JWT",
-                ].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-medium text-slate-600"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Education & Certifications Row */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-3xl bg-[#FAFCFB] border border-slate-100 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-[#E8F7F0] text-[#057A55] flex items-center justify-center flex-shrink-0">
-              <GraduationCap className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] font-bold text-[#057A55] uppercase tracking-wider">
-                Formal Education
-              </span>
-              <h4 className="text-sm sm:text-base font-bold text-[#0F172A] mt-0.5">
-                Diploma in Computer Science & Technology
-              </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Foundational computing, data structures & algorithms
-              </p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-[#FAFCFB] border border-slate-100 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-[#E8F7F0] text-[#057A55] flex items-center justify-center flex-shrink-0">
-              <Award className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] font-bold text-[#057A55] uppercase tracking-wider">
-                Professional Program
-              </span>
-              <h4 className="text-sm sm:text-base font-bold text-[#0F172A] mt-0.5">
-                Complete Web Development
-              </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Programming Hero — Full Stack JavaScript & Ecosystem
-              </p>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-[#FAFCFB] border border-slate-100 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-[#E8F7F0] text-[#057A55] flex items-center justify-center flex-shrink-0">
-              <CheckCircle2 className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] font-bold text-[#057A55] uppercase tracking-wider">
-                Certification
-              </span>
-              <h4 className="text-sm sm:text-base font-bold text-[#0F172A] mt-0.5">
-                IT Support Service Level 03
-              </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                NSDA — Certified Technical & Systems Competency
-              </p>
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
+        {/* Bottom CTA to Discuss Work */}
+        <div className="mt-14 sm:mt-16 text-center">
+          <a
+            href="#work"
+            className="inline-flex items-center gap-2 text-sm font-bold text-[#057A55] hover:text-[#046546] transition-colors group"
+          >
+            <span>Explore Projects Built During My Agency Experience</span>
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
       </div>
     </section>
   );
